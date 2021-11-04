@@ -3,42 +3,46 @@ import './App.css';
 import Header from './Header';
 import Home from './Home';
 import Login from './Login';
+import AddRecord from './AddRecord';
+import EditRecord from './EditRecord';
+import Register from './Register';
+import CheckoutProduct from './CheckoutProduct';
+import {auth} from './firebase';
+import {db} from './firebase';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { useStateValue } from './StateProvider';
+import { GlobalProvider } from './GlobalContext';
 
 function App() {
-  // useEffect(() => {
-  //   // will only run once when the app component loads...
-
-  //   auth.onAuthStateChanged((authUser) => {
-  //     console.log("THE USER IS >>> ", authUser);
-
-  //     if (authUser) {
-  //       // the user just logged in / the user was logged in
-
-  //       dispatch({
-  //         type: "SET_USER",
-  //         user: authUser,
-  //       });
-  //     } else {
-  //       // the user is logged out
-  //       dispatch({
-  //         type: "SET_USER",
-  //         user: null,
-  //       });
-  //     }
-  //   });
-  // }, []);
+  const [{}, dispatch] = useStateValue();
+  //var loggedUser=null;
+  const [loggedUser, setLoggedUser] = useState('');
+  
   return (
+    <GlobalProvider>
     <div className="app">
       <Router>
       <Switch>
+        <Route path="/addRecord">
+          <AddRecord />
+        </Route>
+        <Route path="/checkout">
+          <CheckoutProduct />
+        </Route>
+        <Route path="/editRecord/:productId">
+          <EditRecord />
+        </Route>
         <Route path="/login">
           <Login />
+        </Route>
+        <Route path="/register">
+          <Register />
         </Route>
         <Route path="/checkout">
           <Login />
         </Route>
-        <Route path="/">
+        <Route exact path="/">
           <Header />
           <Home />
            {/* <Login />  */}
@@ -46,7 +50,7 @@ function App() {
       </Switch>
     </Router>
     </div>
+    </GlobalProvider>
   );
 }
-
 export default App;
