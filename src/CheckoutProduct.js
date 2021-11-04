@@ -3,7 +3,7 @@ import "./CheckoutProduct.css";
 import Subtotal from "./Subtotal";
 import { useStateValue } from "./StateProvider";
 import CheckoutProduct from "./CheckoutProduct";
-import Product from './Product';
+import BasketProduct from './BasketProduct';
 import "./Product.css";
 import logo from './assets/vinyl.png';
 import { auth, db } from "./firebase";
@@ -47,7 +47,7 @@ console.log(basket);
           <h2 className="checkout__title">Your shopping Basket</h2>
 
           {basket.map(product => (
-            <CheckoutProduct key = {product.ID}
+            <BasketProduct key = {product.ID}
             product = {product}
               // id={item.ID}
               // title={item.title}
